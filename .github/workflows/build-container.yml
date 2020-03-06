@@ -1,0 +1,26 @@
+name: Build and deploy
+
+on:
+  push:
+    branches:
+      - master
+# on:
+#   release:
+#     types: [published]
+
+jobs:
+  build-and-push:
+    name: Build and push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Publish Docker
+        uses: elgohr/Publish-Docker-Github-Action@2.13
+        with:
+          name: ${{ github.repository }}/http
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+          registry: docker.pkg.github.com
+          tags: "latest"
