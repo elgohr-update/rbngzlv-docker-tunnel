@@ -18,6 +18,7 @@ docker run --name tunnel-proxy --env PORTS="80:3000,443:3001" -itd --net=host vi
 
 Each value in the `PORTS` environment variable is a mapping between a port exposed to the Internet (let's call it port A) and a corresponding port (B) which will be used by the SSH tunnel - initiated by your dev machine - to forward requests made to the port A to the app on your dev machine. The second port should differ from any of the ports exposed to the Internet because Nginx will be listening on those ports.
 
+There's an optional argument `FORWARD_IP` which defaults to 127.0.0.1 but can be configured if requests should be forwarded to a specific IP.
 
 Then, on your dev machine, run:
 

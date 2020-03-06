@@ -9,6 +9,7 @@ trap close_connection TERM
 
 case "$1" in
   "proxy" )
+    FORWARD_IP="${FORWARD_IP:-127.0.0.1}"
     TUNNELS=""
 
     for MAPPINGS in `echo ${PORTS} | awk -F, '{for (i=1;i<=NF;i++)print $i}'`; do
@@ -20,7 +21,7 @@ ${TUNNELS}
 server {
     listen ${MAPPING[0]};
 
-    proxy_pass 127.0.0.1:${MAPPING[1]};
+    proxy_pass ${FORWARD_IP}:${MAPPING[1]};
     proxy_responses 0;
 }
 EOS
